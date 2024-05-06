@@ -1579,6 +1579,7 @@ function speakText(text) {
       content: text
     });
     if ('speechSynthesis' in window) {
+        alert('対応しています')
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'ja-JP';
         speechSynthesis.speak(utterance);
