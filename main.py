@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import anthropic
+import os
+CLAUDE_API_KEY = os.environ.get('CLAUDE_API_KEY')
 
 app = FastAPI()
 
@@ -11,8 +13,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-CLAUDE_API_KEY = "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"
 
 client = anthropic.Client(api_key=CLAUDE_API_KEY)
 
