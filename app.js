@@ -1380,6 +1380,9 @@ const kana = [
   };
   
   let daku = 0; // 濁音・半濁音の状態を管理するための変数
+  let ai_mode = false;
+  let ai_request = "";
+  const messages = [];
   
 // 平仮名ボタンを長押ししたときの処理
 function handleKanaMouseDown(event) {
@@ -1398,6 +1401,10 @@ function handleKanaMouseDown(event) {
         const audioData1 = audioData[fileName];
         const audio = new Audio(audioData1);
         audio.play();
+        if(ai_mode){
+          ai_request = ai_request + kana;
+        }
+
         if(daku != 0){
             daku = 0
             renderKana()
@@ -1418,7 +1425,14 @@ function handleKanaMouseDown(event) {
         }
         renderKana();
       } else if (type === '4') {
-        sendMessage();
+        if(ai_mode && ai_request.length > 0){
+          sendMessage(ai_request);
+          ai_request = "";
+        } else if(ai_mode && ai_request.length === 0){
+          ai_mode = false;
+        } else {
+          ai_mode = true;
+        }
         renderKana();
       }
   
@@ -1476,10 +1490,13 @@ function handleKanaMouseDown(event) {
       const audioData1 = audioData[fileName];
       const audio = new Audio(audioData1);
       audio.play();
+      if(ai_mode){
+        ai_request = ai_request + kana;
+      }
       if(daku != 0){
-        daku = 0
-        renderKana()
-      }      
+          daku = 0
+          renderKana()
+        }      
     } else if (type === '2') {
         if(kana=="□゛"){
             if(daku == 1){
@@ -1496,7 +1513,14 @@ function handleKanaMouseDown(event) {
         }
         renderKana();
     } else if (type === '4') {
-      sendMessage();
+      if(ai_mode && ai_request.length > 0){
+        sendMessage(ai_request);
+        ai_request = "";
+      } else if(ai_mode && ai_request.length === 0){
+        ai_mode = false;
+      } else {
+        ai_mode = true;
+      }
       renderKana();
     }
     button.classList.add('burst');
@@ -1506,8 +1530,8 @@ function handleKanaMouseDown(event) {
   }
 
   // AIとの連携
-  async function sendMessage() {
-    const text = 'こんにちは';
+  async function sendMessage(_ai_request) {
+    const text = _ai_request;
 
     // const responseContainer = document.getElementById('response-container');
     // responseContainer.innerHTML = '応答を待っています...';
