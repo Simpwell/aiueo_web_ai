@@ -1516,14 +1516,15 @@ function handleKanaMouseDown(event) {
         const response = await fetch('https://aiueo-web-ai.onrender.com/chat?text=' + encodeURIComponent(text));
         const data = await response.json();
 
-        if (data.error) {
-            responseContainer.innerHTML = 'エラーが発生しました: ' + data.error;
-        } else {
-            responseContainer.innerHTML = data.response;
-            speakText(data.response);
-        }
+        // if (data.error) {
+        //     responseContainer.innerHTML = 'エラーが発生しました: ' + data.error;
+        // } else {
+        //     responseContainer.innerHTML = data.response;
+        //     speakText(data.response);
+        // }
     } catch (error) {
-        responseContainer.innerHTML = 'エラーが発生しました: ' + error.message;
+        // responseContainer.innerHTML = 'エラーが発生しました: ' + error.message;
+        alert('エラーが発生しました: ' + error.message)
     }
 }
 
