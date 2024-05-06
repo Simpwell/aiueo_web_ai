@@ -53,6 +53,11 @@ html, body {
     flex: 1;
     color:#000000;
   }
+
+  .kana-btn.aimode {
+    /* 押された時の背景色 */
+    background-color: #ffb6c1;
+  }
   
   .kana-btn img {
     max-width: 100%;
