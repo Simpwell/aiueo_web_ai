@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Claude AI Chat Example</title>
+</head>
+<body>
+    <input type="text" id="text-input" placeholder="メッセージを入力してください">
+    <button onclick="sendMessage()">送信</button>
+    <div id="response-container"></div>
+
+    <script>
+        async function sendMessage() {
+            const textInput = document.getElementById('text-input');
+            const text = textInput.value;
+            textInput.value = '';
+
+            const responseContainer = document.getElementById('response-container');
+            responseContainer.innerHTML = '応答を待っています...';
+
+            try {
+                const response = await fetch('/chat?text=' + encodeURIComponent(text));
+                const data = await response.json();
+
+                if (data.error) {
+                    responseContainer.innerHTML = 'エラーが発生しました: ' + data.error;
+                } else {
+                    responseContainer.innerHTML = data.response;
+                    speakText(data.response);
+                }
+            } catch (error) {
+                responseContainer.innerHTML = 'エラーが発生しました: ' + error.message;
+            }
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ja-JP';
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('お使いのブラウザは音声合成をサポートしていません。');
+            }
+        }
+    </script>
+</body>
+</html>

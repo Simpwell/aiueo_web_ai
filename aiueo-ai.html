@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>平仮名発音アプリ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app-container">
+    <div id="app">
+      <!-- ここに平仮名の表が動的に生成されます -->
+    </div>
+  </div>
+
+  <div class="modal-overlay closed" id="modal-overlay"></div>
+  <div class="modal closed" id="modal">
+    <div class="modal-guts">
+      <h4>長押しで発声します</h4>
+    </div>
+    <button class="close-button" id="close-button">OK</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

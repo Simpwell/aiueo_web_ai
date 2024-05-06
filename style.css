@@ -1,0 +1,140 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE11 */  
+    touch-action: none;
+    -webkit-touch-callout:none;
+	  -webkit-user-drag: none;
+	  -moz-user-select: none;  
+  }
+  
+  #app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 20px;
+    padding-bottom: 0px;
+    box-sizing: border-box;
+  }
+  
+  #app {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .kana-row {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    margin: 0px;
+  }
+  
+  .kana-btn {
+    font-weight: bold; /* 追加 */
+    font-size: 24px;
+    padding: 0px;
+    background-color: #ffffff; /* 背景色を白に変更 */
+    border: 2px solid #000000; /* 太い罫線を追加 */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    color:#000000;
+  }
+  
+  .kana-btn img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: auto; /* 追加 */
+    height: auto; /* 追加 */
+  }
+  
+  .kana-btn::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: width 1s ease-out, height 1s ease-out, opacity 1s ease-out;
+  }
+  
+  .kana-btn.animate::after {
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+  }
+  
+  .kana-btn.burst::after {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 100;
+  }
+  
+  .modal-guts {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .modal-guts h4 {
+    font-size: 32px;
+  }
+  
+  .modal .close-button {
+    display: block;
+    margin: 10px auto 50px; 
+    border: 0;
+    background: black;
+    color: white;
+    padding: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    width: 68%;
+  }
+  
+  .modal.closed,
+  .modal-overlay.closed {
+    display: none;
+  }
