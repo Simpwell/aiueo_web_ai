@@ -30,7 +30,7 @@ async def chat(text: str = Query(..., description="ユーザーからのテキ�
         response = client.messages.create(
             model="claude-3-haiku-20240307",
             max_tokens=1024,
-            system="日本語で会話をして下さい。一方的に話すのではなく、短いフレーズで傾聴を心がけて下さい。",
+            system="日本語で会話をして下さい。短い文章で話して下さい。",
             messages=decoded_messages
             # messages=[
             #     {"role": "user", "content": text}
