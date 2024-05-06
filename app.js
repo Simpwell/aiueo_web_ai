@@ -1432,6 +1432,7 @@ function handleKanaMouseDown(event) {
           ai_mode = false;
         } else {
           ai_mode = true;
+          sendMessage(getGreeting());
         }
         renderKana();
       }
@@ -1520,6 +1521,7 @@ function handleKanaMouseDown(event) {
         ai_mode = false;
       } else {
         ai_mode = true;
+        sendMessage(getGreeting());
       }
       renderKana();
     }
@@ -1528,6 +1530,19 @@ function handleKanaMouseDown(event) {
       button.classList.remove('animate', 'burst');
     }, 300);
   }
+
+  function getGreeting() {
+    const currentHour = new Date().getHours();
+  
+    if (currentHour >= 5 && currentHour < 12) {
+      return "おはようございます";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return "こんにちは";
+    } else {
+      return "こんばんは";
+    }
+  }
+
 
   // AIとの連携
   async function sendMessage(_ai_request) {
