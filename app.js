@@ -1529,7 +1529,9 @@ function handleKanaMouseDown(event) {
 }
 
 function speakText(text) {
+  alert("is called");
     if ('speechSynthesis' in window) {
+      alert(text);
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'ja-JP';
         speechSynthesis.speak(utterance);
