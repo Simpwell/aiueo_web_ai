@@ -1615,12 +1615,14 @@ function speakText(text) {
 
         // AIモードで背景をピンク色にする 
         const kanaBtns = document.querySelectorAll('.kana-btn');
-        if(ai_mode){
-          btn.classList.add('aimode');
-        } else {
-          btn.classList.remove('aimode');
-        }
-    });
+        kanaBtns.forEach(btn => {
+          if(ai_mode){
+            btn.classList.add('aimode');
+          } else {
+            btn.classList.remove('aimode');
+          }
+        });
+      });
 
     // すべての img 要素に対してイベントハンドラを設定
     const images = document.querySelectorAll('img');
