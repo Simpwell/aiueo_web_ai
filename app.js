@@ -1382,7 +1382,7 @@ const kana = [
   let daku = 0; // 濁音・半濁音の状態を管理するための変数
   let ai_mode = false;
   let ai_request = "";
-  const messages = [];
+  let messages = [];
   
 // 平仮名ボタンを長押ししたときの処理
 function handleKanaMouseDown(event) {
@@ -1432,6 +1432,7 @@ function handleKanaMouseDown(event) {
           ai_mode = false;
         } else {
           ai_mode = true;
+          messages = [];
           sendMessage(getGreeting());
         }
         renderKana();
@@ -1521,6 +1522,7 @@ function handleKanaMouseDown(event) {
         ai_mode = false;
       } else {
         ai_mode = true;
+        messages = [];
         sendMessage(getGreeting());
       }
       renderKana();
@@ -1547,12 +1549,16 @@ function handleKanaMouseDown(event) {
   // AIとの連携
   async function sendMessage(_ai_request) {
     const text = _ai_request;
+    messages.push({
+      role: "user",
+      content: text
+    });
 
-    // const responseContainer = document.getElementById('response-container');
-    // responseContainer.innerHTML = '応答を待っています...';
+    const jsonString = JSON.stringify(messages);
+    const encodedString = encodeURIComponent(jsonString);
 
     try {
-        const response = await fetch('https://aiueo-web-ai.onrender.com/chat?text=' + encodeURIComponent(text));
+        const response = await fetch('https://aiueo-web-ai.onrender.com/chat?text=' + encodeURIComponent(encodedString));
         const data = await response.json();
 
         if (data.error) {
@@ -1568,6 +1574,10 @@ function handleKanaMouseDown(event) {
 }
 
 function speakText(text) {
+    messages.push({
+      role: "assistant",
+      content: text
+    });
     if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'ja-JP';
