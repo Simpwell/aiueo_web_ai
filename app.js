@@ -1509,11 +1509,11 @@ function handleKanaMouseDown(event) {
   async function sendMessage() {
     const text = 'こんにちは';
 
-    const responseContainer = document.getElementById('response-container');
-    responseContainer.innerHTML = '応答を待っています...';
+    // const responseContainer = document.getElementById('response-container');
+    // responseContainer.innerHTML = '応答を待っています...';
 
     try {
-        const response = await fetch('/chat?text=' + encodeURIComponent(text));
+        const response = await fetch('https://aiueo-web-ai.onrender.com/chat?text=' + encodeURIComponent(text));
         const data = await response.json();
 
         if (data.error) {
